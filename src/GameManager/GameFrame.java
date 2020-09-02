@@ -18,18 +18,20 @@ import javax.swing.JLabel;
 import MonsterPKG.*;
 
 public class GameFrame extends JFrame implements KeyListener {
-	int f_width = 600; // »ı¼ºÇÒ ÇÁ·¹ÀÓÀÇ ³ĞÀÌ °ªÀ» ¼³Á¤ÇÕ´Ï´Ù.
-	int f_height = 800; // »ı¼ºÇÒ ÇÁ·¹ÀÓÀÇ ³ôÀÌ °ªÀ» ¼³Á¤ÇÕ´Ï´Ù.
+	int f_width = 600; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+	int f_height = 800; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	// Toolkit tk = Toolkit.getDefaultToolkit();
 	Image myAir;
 	Image missileImg;
 	Image redMonImg;
-	// ´õºí ¹öÆÛ¸µ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¸ï¿½
 	Image buffImage;
 	Graphics buffg;
-	// ´õºí ¹öÆÛ¸µ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¸ï¿½
 
+	//int score=0;
 	int score=0;
+	// ì£¼ì„ ê°±ì‹  
 
 	int x = 270, y = 700;
 	boolean KeyUp = false;
@@ -44,30 +46,30 @@ public class GameFrame extends JFrame implements KeyListener {
 	RedMon redMon;
 	ArrayList<RedMon> redMonList = new ArrayList<>();
 
-	GameFrame() { // ÇÁ·¹ÀÓÀ» ¸¸µì´Ï´Ù.
-		init(); // ³ªÁßÀ» À§ÇÑ ÇÁ·¹ÀÓ¿¡ µé¾î°¥ ÄÄÆ÷³ÍÆ® ¼¼ÆÃ ¸Ş¼ÒµåÀÔ´Ï´Ù.
-		start(); // ³ªÁßÀ» À§ÇÑ ±âº»ÀûÀÎ ½ÃÀÛ ¸í·É Ã³¸® ºÎºĞÀÔ´Ï´Ù.
-		this.setTitle("GameStart"); // ÇÁ·¹ÀÓÀÇ ÀÌ¸§À» ¼³Á¤ÇÕ´Ï´Ù.
-		this.setSize(f_width, f_height); // ÇÁ·¹ÀÓÀÇ Å©±â¸¦ À§¿¡ °ª¿¡¼­ °¡Á®¿Í ¼³Á¤
+	GameFrame() { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
+		init(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½ï¿½Ô´Ï´ï¿½.
+		start(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Îºï¿½ï¿½Ô´Ï´ï¿½.
+		this.setTitle("GameStart"); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+		this.setSize(f_width, f_height); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		this.setBackground(Color.BLACK);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		// ÇÁ·¹ÀÓÀÌ À©µµ¿ì¿¡ Ç¥½ÃµÉ¶§ À§Ä¡¸¦ ¼¼ÆÃÇÏ±â À§ÇØ
-		// ÇöÀç ¸ğ´ÏÅÍÀÇ ÇØ»óµµ °ªÀ» ¹Ş¾Æ¿É´Ï´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ì¿¡ Ç¥ï¿½ÃµÉ¶ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¾Æ¿É´Ï´ï¿½.
 
 		int f_xpos = (int) (screen.getWidth() / 2 - f_width / 2);
 		int f_ypos = (int) (screen.getHeight() / 2 - f_height / 2);
-		// ÇÁ·¹ÀÓÀ» ¸ğ´ÏÅÍ È­¸é Á¤Áß¾Ó¿¡ ¹èÄ¡½ÃÅ°±â À§ÇØ ÁÂÇ¥ °ªÀ» °è»êÇÕ´Ï´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ß¾Ó¿ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 
 		this.addKeyListener(this);
 		actionKey();
 		createRedMonTime();
-		this.setLocation(f_xpos, f_ypos);// ÇÁ·¹ÀÓÀ» È­¸é¿¡ ¹èÄ¡
-		this.setResizable(false); // ÇÁ·¹ÀÓÀÇ Å©±â¸¦ ÀÓÀÇ·Î º¯°æ¸øÇÏ°Ô ¼³Á¤
+		this.setLocation(f_xpos, f_ypos);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ ï¿½ï¿½Ä¡
+		this.setResizable(false); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
-		this.setVisible(true); // ÇÁ·¹ÀÓÀ» ´«¿¡ º¸ÀÌ°Ô ¶ç¿ó´Ï´Ù.
+		this.setVisible(true); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½.
 	}
 
-	public void init() { // ³ªÁßÀ» À§ÇÑ ÇÁ·¹ÀÓ¿¡ µé¾î°¥ ÄÄÆ÷³ÍÆ® ¼¼ÆÃ ¸Ş¼ÒµåÀÔ´Ï´Ù.
+	public void init() { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½ï¿½Ô´Ï´ï¿½.
 		// myAir = tk.getImage("./images/myAir1.jpg");
 		myAir = new ImageIcon("./images/myAir1.jpg").getImage();
 		ms = new MissileLine(x, y);
@@ -76,7 +78,7 @@ public class GameFrame extends JFrame implements KeyListener {
 		redMonImg = redMon.getImage();
 	}
 
-	public void start() { // ³ªÁßÀ» À§ÇÑ ±âº»ÀûÀÎ ½ÃÀÛ ¸í·É Ã³¸® ºÎºĞÀÔ´Ï´Ù.
+	public void start() { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Îºï¿½ï¿½Ô´Ï´ï¿½.
 
 	}
 
@@ -87,7 +89,7 @@ public class GameFrame extends JFrame implements KeyListener {
 			public void run() {
 				// TODO Auto-generated method stub
 				while (true) {
-					// System.out.println("Å°°¨Áö°¡ ½ÃÀÛµÇ¾ú½À´Ï´Ù.");
+					// System.out.println("Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 					KeyProcess();
 					missileProcess();
 					repaint();
@@ -137,41 +139,41 @@ public class GameFrame extends JFrame implements KeyListener {
 	}
 
 	public void paint(Graphics g) {
-		buffImage = createImage(f_width, f_height); // Image°´Ã¼¸¦ ¹öÆÛ¿¡ »ı¼º
-		// ´õºí¹öÆÛ¸µ ¹öÆÛ Å©±â¸¦ È­¸é Å©±â¿Í °°°Ô ¼³Á¤
-		buffg = buffImage.getGraphics(); // ¹öÆÛÀÇ ±×·¡ÇÈ °´Ã¼¸¦ ¾ò±â
-		buffg.clearRect(0, 0, f_width, f_height); // ¹öÆÛ¸¦ Áö¿î´Ù
-		buffg.drawImage(myAir, x, y, this); // ¹öÆÛ¿¡ ±×¸²À» ±×¸°´Ù
+		buffImage = createImage(f_width, f_height); // Imageï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ È­ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		buffg = buffImage.getGraphics(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½
+		buffg.clearRect(0, 0, f_width, f_height); // ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+		buffg.drawImage(myAir, x, y, this); // ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½
 		drawMissile();
 		drawMonster();
-		// È­¸é¿¡ ¹öÆÛ¿¡ ±×¸° ±×¸²À» °¡Á®¿Í ±×¸®±â
+		// È­ï¿½é¿¡ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½×¸ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½
 
 		buffg.setColor(Color.white);
 		buffg.setFont(new Font("Defualt", Font.BOLD, 20));
 
-		// ÆùÆ® ¼³Á¤À» ÇÕ´Ï´Ù. ±âº»ÆùÆ®, ±½°Ô, »çÀÌÁî 20
+		// ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½. ï¿½âº»ï¿½ï¿½Æ®, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 20
 		buffg.drawString("X : " + x, 400, 70);
 		buffg.drawString("Y : " + y, 400, 90);
 		buffg.drawString("Score : " + score, 400, 110);
-		g.drawImage(buffImage, 0, 0, this); // ¹öÆÛ¿¡ ÀÖ´Â °ÍÀ» È­¸é¿¡ ±×¸°´Ù.
+		g.drawImage(buffImage, 0, 0, this); // ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ ï¿½×¸ï¿½ï¿½ï¿½.
 	}
 
-	public void drawMissile() { // ¹Ì»çÀÏ ±×¸®´Â ¸Ş¼Òµå
+	public void drawMissile() { // ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½
 		for (int i = 0; i < missileList.size(); ++i) {
-			// ¹Ì»çÀÏ Á¸Àç À¯¹«¸¦ È®ÀÎÇÑ´Ù.
+			// ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 			ms = (MissileLine) (missileList.get(i));
-			// ¹Ì»çÀÏ À§Ä¡°ªÀ» È®ÀÎ
+			// ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 			buffg.drawImage(missileImg, ms.pos.x, ms.pos.y, this);
-			// ÇöÀç ÁÂÇ¥¿¡ ¹Ì»çÀÏ ±×¸®±â.
-			// ÀÌ¹ÌÁö Å©±â¸¦ °¨¾ÈÇÑ ¹Ì»çÀÏ ¹ß»ç ÁÂÇ¥´Â ¼öÁ¤µÊ.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			for (int j = 0; j < redMonList.size(); j++) {
 				redMon = redMonList.get(j);
 				hitMonster(i, j, ms, redMon);
 			}
 			ms.move();
-			// ±×·ÁÁø ¹Ì»çÀÏÀ» Á¤ÇØÁø ¼ıÀÚ¸¸Å­ ÀÌµ¿½ÃÅ°±â
-			if (ms.pos.y <= 0) { // ¹Ì»çÀÏÀÌ È­¸é ¹ÛÀ¸·Î ³ª°¡¸é
-				missileList.remove(i); // ¹Ì»çÀÏ Áö¿ì±â
+			// ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½Å­ ï¿½Ìµï¿½ï¿½ï¿½Å°ï¿½ï¿½
+			if (ms.pos.y <= 0) { // ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				missileList.remove(i); // ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			}
 		}
@@ -179,22 +181,22 @@ public class GameFrame extends JFrame implements KeyListener {
 
 	public void drawMonster() {
 		for (int i = 0; i < redMonList.size(); ++i) {
-			// ¹Ì»çÀÏ Á¸Àç À¯¹«¸¦ È®ÀÎÇÑ´Ù.
+			// ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 			redMon = redMonList.get(i);
-			// ¹Ì»çÀÏ À§Ä¡°ªÀ» È®ÀÎ
+			// ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 			// System.out.println("Monster :"+redMon.pos.x+"/"+redMon.pos.y);
 			buffg.drawImage(redMonImg, redMon.pos.x, redMon.pos.y, this);
-			// ÇöÀç ÁÂÇ¥¿¡ ¹Ì»çÀÏ ±×¸®±â.
-			// ÀÌ¹ÌÁö Å©±â¸¦ °¨¾ÈÇÑ ¹Ì»çÀÏ ¹ß»ç ÁÂÇ¥´Â ¼öÁ¤µÊ.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 			for (int j = 0; j < missileList.size(); j++) {
 				ms = (MissileLine) missileList.get(j);
 				hitMonster(j, i, ms, redMon);
 			}
 			redMon.move();
-			// ±×·ÁÁø ¹Ì»çÀÏÀ» Á¤ÇØÁø ¼ıÀÚ¸¸Å­ ÀÌµ¿½ÃÅ°±â
-			if (redMon.pos.y > f_height) { // ¹Ì»çÀÏÀÌ È­¸é ¹ÛÀ¸·Î ³ª°¡¸é
-				redMonList.remove(i); // ¹Ì»çÀÏ Áö¿ì±â
+			// ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½Å­ ï¿½Ìµï¿½ï¿½ï¿½Å°ï¿½ï¿½
+			if (redMon.pos.y > f_height) { // ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				redMonList.remove(i); // ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			}
 		}
@@ -204,18 +206,18 @@ public class GameFrame extends JFrame implements KeyListener {
 		/*
 		 * if (Math.abs( (r.pos.x - r.getWidth() / 2) - m.pos.x) < (r.getWidth() / 2 +
 		 * m.getWidth() / 2) && Math.abs((r.pos.y - m.getHeight() / 2) - (m.pos.y)) <
-		 * (r.getHeight() / 2 + m.getHeight() / 2)) { System.out.println("Ãæµ¹");
+		 * (r.getHeight() / 2 + m.getHeight() / 2)) { System.out.println("ï¿½æµ¹");
 		 * missileList.remove(i); redMonList.remove(j); }
 		 */
 
 		/*
-		 * if () { System.out.println("Ãæµ¹"); missileList.remove(i);
+		 * if () { System.out.println("ï¿½æµ¹"); missileList.remove(i);
 		 * redMonList.remove(j); }
 		 */
 
 		if ((m.pos.y >= r.pos.y && m.pos.y <= r.pos.y + r.getHeight())
 				&& (m.pos.x >= r.pos.x && m.pos.x <= r.pos.x + r.getWidth())) {
-			System.out.println("Ãæµ¹");
+			System.out.println("ï¿½æµ¹");
 			score += 10;
 			missileList.remove(i);
 			redMonList.remove(j);
@@ -231,12 +233,12 @@ public class GameFrame extends JFrame implements KeyListener {
 
 	}
 
-	public void Draw_Char() { // ½ÇÁ¦·Î ±×¸²µéÀ» ±×¸± ºÎºĞ
+	public void Draw_Char() { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½Îºï¿½
 	}
 
 	public void missileProcess() {
-		if (KeySpace) { // ½ºÆäÀÌ½º¹Ù Å° »óÅÂ°¡ true ¸é
-			ms = new MissileLine(x + 29, y - 5); // ÁÂÇ¥ Ã¼Å©ÇÏ¿© ³Ñ±â±â
+		if (KeySpace) { // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ Å° ï¿½ï¿½ï¿½Â°ï¿½ true ï¿½ï¿½
+			ms = new MissileLine(x + 29, y - 5); // ï¿½ï¿½Ç¥ Ã¼Å©ï¿½Ï¿ï¿½ ï¿½Ñ±ï¿½ï¿½
 			missileList.add(ms);
 		}
 	}
@@ -257,7 +259,7 @@ public class GameFrame extends JFrame implements KeyListener {
 		case KeyEvent.VK_RIGHT:
 			KeyRight = true;
 			break;
-		case KeyEvent.VK_SPACE: // ½ºÆäÀÌ½ºÅ° ÀÔ·Â Ã³¸® Ãß°¡
+		case KeyEvent.VK_SPACE: // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½Å° ï¿½Ô·ï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½
 			KeySpace = true;
 			break;
 		}
@@ -279,7 +281,7 @@ public class GameFrame extends JFrame implements KeyListener {
 		case KeyEvent.VK_RIGHT:
 			KeyRight = false;
 			break;
-		case KeyEvent.VK_SPACE: // ½ºÆäÀÌ½ºÅ° ÀÔ·Â Ã³¸® Ãß°¡
+		case KeyEvent.VK_SPACE: // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½Å° ï¿½Ô·ï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½
 			KeySpace = false;
 			break;
 		}
